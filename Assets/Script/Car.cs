@@ -25,6 +25,7 @@ public class Car : MonoBehaviour
     // Set Values at start
     void Start()
     {
+        healthBar = GetComponent<HealthBar>();
         HEALTH = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         rb = GetComponent<Rigidbody>();
