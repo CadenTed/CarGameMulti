@@ -6,6 +6,7 @@ using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using static Cinemachine.CinemachineTriggerAction.ActionSettings;
 
 public class TestLobby : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class TestLobby : MonoBehaviour
 
     private Lobby joinedLobby;
 
-    private float heartBeatTimer = 15;
+    private float heartBeatTimer;
+
+    private float lobbyUpdateTimer;
 
     private string playerName;
 
@@ -34,6 +37,7 @@ public class TestLobby : MonoBehaviour
     private void Update()
     {
         HandleLobbyHeartBeat();
+        HandleLobbyPollForUpdates();
     }
 
     async void HandleLobbyHeartBeat()
@@ -48,6 +52,23 @@ public class TestLobby : MonoBehaviour
                 heartBeatTimer = heartBeatTimerMax;
 
                 await LobbyService.Instance.SendHeartbeatPingAsync(hostLobby.Id);
+            }
+        }
+    }
+
+    private async void HandleLobbyPollForUpdates()
+    {
+        if (joinedLobby != null)
+        {
+            lobbyUpdateTimer -= Time.deltaTime;
+
+            if (lobbyUpdateTimer < 0)
+            {
+                float lobbyUpdateTimerMax = 1.1f;
+                lobbyUpdateTimer = lobbyUpdateTimerMax;
+
+                Lobby lobby = await LobbyService.Instance.GetLobbyAsync(joinedLobby.Id);
+                joinedLobby = lobby;
             }
         }
     }
@@ -125,12 +146,13 @@ public class TestLobby : MonoBehaviour
                 Player = GetPlayer()
             };
 
-            Lobby joinedLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode, join);
-
+            Lobby lobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode, join);
+            joinedLobby = lobby;
+            
 
             Debug.Log("Joined Lobby with code " + lobbyCode);
 
-            PrintPlayers(joinedLobby);
+            PrintPlayers(lobby);
 
         }
         catch (LobbyServiceException e)
@@ -143,7 +165,6 @@ public class TestLobby : MonoBehaviour
     {
         try
         {
-
             await LobbyService.Instance.QuickJoinLobbyAsync();
         }
         catch (LobbyServiceException e) {
@@ -161,6 +182,12 @@ public class TestLobby : MonoBehaviour
                     }
         };
     }
+
+    private void PrintPlayers()
+    {
+        PrintPlayers(joinedLobby);
+    }
+
     private void PrintPlayers(Lobby lobby)
     {
 
@@ -185,6 +212,8 @@ public class TestLobby : MonoBehaviour
             }
             });
 
+            joinedLobby = hostLobby;
+
             PrintPlayers(hostLobby);
         }
         catch (LobbyServiceException e)
@@ -193,5 +222,83 @@ public class TestLobby : MonoBehaviour
         }
 
         
+    }
+
+    private async void UpdatePlayerName(string newPlayerName)
+    {
+        try
+        {
+            playerName = newPlayerName;
+            await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId, new UpdatePlayerOptions
+            {
+                Data = new Dictionary<string, PlayerDataObject> {
+                    {"PlayerName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, playerName)} 
+                }
+            });
+
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    private async void LeaveLobby()
+    {
+        try
+        {
+            await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId);
+
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    private async void KickPlayer()
+    {
+        try
+        {
+            await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, joinedLobby.Players[1].Id);
+
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+
+    private async void MigrateLobbyHost()
+    {
+        try
+        {
+            hostLobby = await Lobbies.Instance.UpdateLobbyAsync(hostLobby.Id, new UpdateLobbyOptions
+            {
+                HostId = joinedLobby.Players[1].Id
+
+            });
+
+            joinedLobby = hostLobby;
+
+            PrintPlayers(hostLobby);
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+
+    }
+
+    private async void DeleteLobby()
+    {
+        try
+        {
+            await LobbyService.Instance.DeleteLobbyAsync(joinedLobby.Id);
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
     }
 }

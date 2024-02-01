@@ -1,9 +1,10 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // Car Collision effects
 
-public class Car : MonoBehaviour
+public class Car : NetworkBehaviour
 {
     // Start is called before the first frame update
     Rigidbody rb;

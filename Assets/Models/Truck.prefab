@@ -1327,12 +1327,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1746839655123962832}
+  - component: {fileID: 8080900398060095887}
   - component: {fileID: 8446469071924036124}
   - component: {fileID: 6942518972590264428}
   - component: {fileID: 3789375591988976589}
   - component: {fileID: 3325056199402384757}
   - component: {fileID: 13327079955856970}
-  - component: {fileID: 8080900398060095887}
   - component: {fileID: 4955229006838852053}
   m_Layer: 0
   m_Name: Truck
@@ -1363,6 +1363,26 @@ Transform:
   - {fileID: 6859931872083181686}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8080900398060095887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3519667179540561152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3525466288
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &8446469071924036124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1466,26 +1486,6 @@ MonoBehaviour:
   frontRightT: {fileID: 3958063094079946827}
   rearLeftT: {fileID: 3979724928461810455}
   rearRightT: {fileID: 4083753349667897260}
---- !u!114 &8080900398060095887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3519667179540561152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3525466288
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &4955229006838852053
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 // Car Movement
 
-public class CarController : MonoBehaviour
+public class CarController : NetworkBehaviour
 {
     public List<AxleInfo> axleInfos;
     public float maxMotorTorque;
