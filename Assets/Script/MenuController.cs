@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 // Highscore manager
 
@@ -9,6 +9,6 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-       highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore", 0);
+        highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore", 0);
     }
 }

@@ -1,8 +1,9 @@
+using Unity.Netcode;
 using UnityEngine;
 
 // Zombie Managers
 
-public class Zomb : MonoBehaviour
+public class Zomb : NetworkBehaviour
 {
     [SerializeField] private GameObject car;
     [SerializeField] private float speed = 10f;

@@ -96,7 +96,7 @@ public class Car : NetworkBehaviour
         // Heal car when hitting health boost powerup
         if (other.gameObject.CompareTag("HealthBoost"))
         {
-            if((HEALTH - -20) > 100)
+            if ((HEALTH - -20) > 100)
             {
                 TakeDamage(HEALTH - 100);
             }
@@ -106,7 +106,7 @@ public class Car : NetworkBehaviour
             }
             //Ramp.canSpawnRamp = true;
             Destroy(other.gameObject);
-            
+
         }
 
 

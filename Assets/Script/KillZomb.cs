@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Kill Zombie script
@@ -16,7 +14,7 @@ public class KillZomb : MonoBehaviour
         // If car hits zombie going fastter than a certain speed, kill zombie
         if (other.gameObject.CompareTag("Zomb") || other.gameObject.CompareTag("bombZomb"))
         {
-            if(Car.TRUCKVEL.magnitude >= 2.5)
+            if (Car.TRUCKVEL.magnitude >= 2.5)
             {
                 Instantiate(deathEffect, transform.position, Quaternion.identity);
 

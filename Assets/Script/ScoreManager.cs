@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 // Score Manager
 
@@ -52,7 +52,7 @@ public class ScoreManager : MonoBehaviour
     // Save score
     public void SaveHighScore()
     {
-         PlayerPrefs.SetInt("HighScore", highScore);
-         PlayerPrefs.Save();
+        PlayerPrefs.SetInt("HighScore", highScore);
+        PlayerPrefs.Save();
     }
 }

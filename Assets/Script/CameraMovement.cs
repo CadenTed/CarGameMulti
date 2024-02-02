@@ -1,6 +1,6 @@
 
-using UnityEngine;
 using Cinemachine;
+using UnityEngine;
 
 // Change camera view during tutorial start
 

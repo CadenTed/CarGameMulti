@@ -1,12 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
-using static Cinemachine.CinemachineTriggerAction.ActionSettings;
 
 public class TestLobby : MonoBehaviour
 {
@@ -25,7 +22,8 @@ public class TestLobby : MonoBehaviour
 
         await UnityServices.InitializeAsync();
 
-        AuthenticationService.Instance.SignedIn += () => {
+        AuthenticationService.Instance.SignedIn += () =>
+        {
             Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
@@ -104,7 +102,7 @@ public class TestLobby : MonoBehaviour
             Debug.Log(e);
         }
 
-        
+
     }
     private async void ListLobbies()
     {
@@ -142,13 +140,14 @@ public class TestLobby : MonoBehaviour
     {
         try
         {
-            JoinLobbyByCodeOptions join = new JoinLobbyByCodeOptions {
+            JoinLobbyByCodeOptions join = new JoinLobbyByCodeOptions
+            {
                 Player = GetPlayer()
             };
 
             Lobby lobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyCode, join);
             joinedLobby = lobby;
-            
+
 
             Debug.Log("Joined Lobby with code " + lobbyCode);
 
@@ -167,7 +166,8 @@ public class TestLobby : MonoBehaviour
         {
             await LobbyService.Instance.QuickJoinLobbyAsync();
         }
-        catch (LobbyServiceException e) {
+        catch (LobbyServiceException e)
+        {
             Debug.Log(e);
         }
     }
@@ -221,7 +221,7 @@ public class TestLobby : MonoBehaviour
             Debug.Log(e);
         }
 
-        
+
     }
 
     private async void UpdatePlayerName(string newPlayerName)
@@ -232,7 +232,7 @@ public class TestLobby : MonoBehaviour
             await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, AuthenticationService.Instance.PlayerId, new UpdatePlayerOptions
             {
                 Data = new Dictionary<string, PlayerDataObject> {
-                    {"PlayerName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, playerName)} 
+                    {"PlayerName", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, playerName)}
                 }
             });
 

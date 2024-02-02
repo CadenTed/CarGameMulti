@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 // Spawn Manager
 
-public class mainSpawner : MonoBehaviour
+public class mainSpawner : NetworkBehaviour
 {
     public GameObject zombPrefab;
     public GameObject TntPrefab;
@@ -42,32 +41,58 @@ public class mainSpawner : MonoBehaviour
     // check if entites can spawn and spawn accordingly
     private void FixedUpdate()
     {
+        if (!IsServer) return;
+
+
         if (canSpawnZomb)
         {
             GameObject zomb = Instantiate(zombPrefab, new Vector3(Random.Range(-74, 74), 0.15f, Random.Range(-74, 74)), transform.rotation);
+            NetworkObject zombNetworkObject = zomb.GetComponent<NetworkObject>();
+            zombNetworkObject.Spawn(true);
             canSpawnZomb = false;
         }
         if (canSpawnBombZomb)
         {
             GameObject bombZomb = Instantiate(bombZombPrefab, new Vector3(Random.Range(-74, 74), 0.15f, Random.Range(-74, 74)), transform.rotation);
+            NetworkObject bombZombNetworkObject = bombZomb.GetComponent<NetworkObject>();
+            bombZombNetworkObject.Spawn(true);
             canSpawnBombZomb = false;
-        }
-        if (canSpawnHealth)
-        {
-            GameObject Tnt = Instantiate(TntPrefab, new Vector3(Random.Range(-24, 24), 2f, Random.Range(-24, 24)), transform.rotation);
-            canSpawnHealth = false;
         }
         if (canSpawnBomb)
         {
+            GameObject Tnt = Instantiate(TntPrefab, new Vector3(Random.Range(-24, 24), 2f, Random.Range(-24, 24)), transform.rotation);
+            NetworkObject TntNetworkObject = Tnt.GetComponent<NetworkObject>();
+            TntNetworkObject.Spawn(true);
+            canSpawnHealth = false;
+        }
+        if (canSpawnHealth)
+        {
             GameObject HpBoost = Instantiate(HealthPrefab, new Vector3(Random.Range(-24, 24), 2f, Random.Range(-24, 24)), transform.rotation);
+            NetworkObject HpBoostNetworkObject = HpBoost.GetComponent<NetworkObject>();
+            HpBoostNetworkObject.Spawn(true);
             canSpawnBomb = false;
         }
+
+    }
+
+    [ClientRpc]
+    private void SpawnNewZombieClientRpc()
+    {
+
+    }
+
+    [ClientRpc]
+    private void SpawnNewPowerUpClientRpc()
+    {
+
     }
 
     // Recursively spawn zombies
     void SpawnZomb()
     {
         GameObject zomb = Instantiate(zombPrefab, new Vector3(Random.Range(-74, 74), 0.15f, Random.Range(-74, 74)), transform.rotation);
+        NetworkObject zombNetworkObject = zomb.GetComponent<NetworkObject>();
+        zombNetworkObject.Spawn(true);
         Invoke("SpawnZomb", Random.Range(minSpawnRate, maxSpawnRate));
     }
 
@@ -75,6 +100,8 @@ public class mainSpawner : MonoBehaviour
     void SpawnBombZomb()
     {
         GameObject bombZomb = Instantiate(bombZombPrefab, new Vector3(Random.Range(-74, 74), 0.15f, Random.Range(-74, 74)), transform.rotation);
+        NetworkObject bombZombNetworkObject = bombZomb.GetComponent<NetworkObject>();
+        bombZombNetworkObject.Spawn(true);
         Invoke("SpawnBombZomb", Random.Range(minBomberSpawnRate, maxBomberSpawnRate));
     }
 
@@ -82,6 +109,8 @@ public class mainSpawner : MonoBehaviour
     void SpawnBomb()
     {
         GameObject Tnt = Instantiate(TntPrefab, new Vector3(Random.Range(-24, 24), 2f, Random.Range(-24, 24)), transform.rotation);
+        NetworkObject TntNetworkObject = Tnt.GetComponent<NetworkObject>();
+        TntNetworkObject.Spawn(true);
         Invoke("SpawnBomb", Random.Range(minPowerSpawn, maxPowerSpawn));
     }
 
@@ -89,6 +118,8 @@ public class mainSpawner : MonoBehaviour
     void SpawnHealth()
     {
         GameObject HpBoost = Instantiate(HealthPrefab, new Vector3(Random.Range(-24, 24), 2f, Random.Range(-24, 24)), transform.rotation);
+        NetworkObject HpBoostNetworkObject = HpBoost.GetComponent<NetworkObject>();
+        HpBoostNetworkObject.Spawn(true);
         Invoke("SpawnHealth", Random.Range(minPowerSpawn, maxPowerSpawn));
     }
 

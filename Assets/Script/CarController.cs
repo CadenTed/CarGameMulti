@@ -13,6 +13,8 @@ public class CarController : NetworkBehaviour
     // Update wheel collider settings
     void FixedUpdate()
     {
+        if (!IsOwner) return;
+
         float motor = maxMotorTorque * Input.GetAxis("Vertical");
         float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
 

@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 // Car Movement Controller
