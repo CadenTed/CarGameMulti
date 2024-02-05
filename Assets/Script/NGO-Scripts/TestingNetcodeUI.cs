@@ -13,13 +13,13 @@ public class TestingNetcodeUI : MonoBehaviour
         hostBtn.onClick.AddListener(() =>
         {
             Debug.Log("HOST");
-            NetworkManager.Singleton.StartHost();
+            CarGameMultiplayer.Instance.StartHost();
             Hide();
         });
         clientBtn.onClick.AddListener(() =>
         {
             Debug.Log("HOST");
-            NetworkManager.Singleton.StartClient();
+            CarGameMultiplayer.Instance.StartClient();
             Hide();
         });
     }
