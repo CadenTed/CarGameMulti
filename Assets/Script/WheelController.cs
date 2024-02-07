@@ -1,8 +1,9 @@
+using Unity.Netcode;
 using UnityEngine;
 
 // Car Movement Controller
 
-public class WheelController : MonoBehaviour
+public class WheelController : NetworkBehaviour
 {
     public float acceleration = 1000;
     public float breakForce = 3000;
@@ -18,6 +19,8 @@ public class WheelController : MonoBehaviour
 
     public void FixedUpdate()
     {
+        if (!IsOwner) return;
+
         HandleMotor();
         HandleSteering();
         UpdateWheels();

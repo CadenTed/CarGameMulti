@@ -18,7 +18,13 @@ public class CharacterColorSelectSingleUI : MonoBehaviour
 
     private void Start()
     {
+        CarGameMultiplayer.Instance.OnPlayerDataNetworkListChanged += CarGameMultiplayer_OnPlayerDataNetworkListChanged;
         image.color = CarGameMultiplayer.Instance.GetPlayerColor(colorId);
+        UpdateIsSelected();
+    }
+
+    private void CarGameMultiplayer_OnPlayerDataNetworkListChanged(object sender, System.EventArgs e)
+    {
         UpdateIsSelected();
     }
 
@@ -31,5 +37,10 @@ public class CharacterColorSelectSingleUI : MonoBehaviour
         {
             selectedGameObject.SetActive(false);
         }
+    }
+
+    private void OnDestroy()
+    {
+        CarGameMultiplayer.Instance.OnPlayerDataNetworkListChanged -= CarGameMultiplayer_OnPlayerDataNetworkListChanged;
     }
 }

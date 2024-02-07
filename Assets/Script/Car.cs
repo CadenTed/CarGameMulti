@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,7 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class Car : NetworkBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private PlayerVisual playerVisual;
+    [SerializeField] private List<Vector3> spawnPos;
     Rigidbody rb;
     static public Vector3 POS = Vector3.zero;
     static public Vector3 TRUCKVEL = Vector3.zero;
@@ -30,11 +32,30 @@ public class Car : NetworkBehaviour
         HEALTH = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         rb = GetComponent<Rigidbody>();
+
+        PlayerData playerData = CarGameMultiplayer.Instance.GetPlayerDataFromClientID(OwnerClientId);
+        playerVisual.SetBodyColor(CarGameMultiplayer.Instance.GetPlayerColor(playerData.colorId));
     }
+
+    public override void OnNetworkSpawn()
+    {
+        if (SceneManager.GetActiveScene().name == "CharacterSelectScene")
+        {
+            this.gameObject.transform.GetChild(7).gameObject.SetActive(false);
+        }
+
+        if (SceneManager.GetActiveScene().name != "CharacterSelectScene")
+        {
+            transform.position = spawnPos[CarGameMultiplayer.Instance.GetPlayerDataIndexFromClientID(OwnerClientId)];
+        }
+    }
+
 
     // Check for player death every frame
     void Update()
     {
+
+
         if (CheckForDeath(HEALTH))
         {
             ScoreManager.instance.SaveHighScore();

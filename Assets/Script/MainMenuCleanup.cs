@@ -17,6 +17,11 @@ public class MainMenuCleanup : MonoBehaviour
             Destroy(CarGameMultiplayer.Instance.gameObject);
         }
 
+        if (CarGameLobby.Instance != null)
+        {
+            Destroy(CarGameLobby.Instance.gameObject);
+        }
+
 
     }
 }

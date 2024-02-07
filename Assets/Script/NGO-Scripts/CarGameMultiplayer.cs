@@ -14,7 +14,7 @@ public class CarGameMultiplayer : NetworkBehaviour
 
     [SerializeField] private List<Color> playerColorList;
 
-    private const int MAX_PLAYERS = 2;
+    public const int MAX_PLAYERS = 2;
 
     private NetworkList<PlayerData> playerDataNetworkList;
 
@@ -37,7 +37,21 @@ public class CarGameMultiplayer : NetworkBehaviour
     {
         NetworkManager.Singleton.ConnectionApprovalCallback += NetworkManager_ConnectionApprovalCallback;
         NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientConnectedCallback;
+        NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_Server_OnClientDisconnectCallback;
         NetworkManager.Singleton.StartHost();
+
+    }
+
+    private void NetworkManager_Server_OnClientDisconnectCallback(ulong clientId)
+    {
+        for (int i = 0; i < playerDataNetworkList.Count; i++)
+        {
+            PlayerData playerData = playerDataNetworkList[i];
+            if (playerData.clientId == clientId)
+            {
+                playerDataNetworkList.RemoveAt(i);
+            }
+        }
 
     }
 
@@ -45,8 +59,9 @@ public class CarGameMultiplayer : NetworkBehaviour
     {
         playerDataNetworkList.Add(new PlayerData
         {
-            clientId = clientId
-        });
+            clientId = clientId,
+            colorId = GetFirstUnusedColorId()
+        }) ;
     }
 
     private void NetworkManager_ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest connectionApprovalRequest, NetworkManager.ConnectionApprovalResponse connectionApprovalResponse)
@@ -74,12 +89,12 @@ public class CarGameMultiplayer : NetworkBehaviour
     {
         OnTryingToJoinGame?.Invoke(this, EventArgs.Empty);
 
-        NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
+        NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_Client_OnClientDisconnectCallback;
         NetworkManager.Singleton.StartClient();
 
     }
 
-    private void NetworkManager_OnClientDisconnectCallback(ulong clientId)
+    private void NetworkManager_Client_OnClientDisconnectCallback(ulong clientId)
     {
         OnFailedToJoinGame?.Invoke(this, EventArgs.Empty);
     }
@@ -169,6 +184,25 @@ public class CarGameMultiplayer : NetworkBehaviour
         return true;
     }
 
+    private int GetFirstUnusedColorId()
+    {
+        for (int i = 0; i < playerColorList.Count; i++)
+        {
+            if(IsColorAvailable(i))
+            {
+                return i;
+            }
+        }
 
+        return -1;
+    }
+
+    public void KickPlayer(ulong clientId)
+    {
+        NetworkManager.Singleton.DisconnectClient(clientId);
+        NetworkManager_Server_OnClientDisconnectCallback(clientId);
+    }
+
+    
 }
 
