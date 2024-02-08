@@ -210,8 +210,6 @@ public class CarGameLobby : MonoBehaviour
         {
             joinedLobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code);
             
-            joinedLobby = await LobbyService.Instance.QuickJoinLobbyAsync();
-
             string relayJoinCode = joinedLobby.Data[KEY_RELAY_JOIN_CODE].Value;
             JoinAllocation joinAllocation = await JoinRelay(relayJoinCode);
             
@@ -233,8 +231,6 @@ public class CarGameLobby : MonoBehaviour
         {
             joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId);
             
-            joinedLobby = await LobbyService.Instance.QuickJoinLobbyAsync();
-
             string relayJoinCode = joinedLobby.Data[KEY_RELAY_JOIN_CODE].Value;
             JoinAllocation joinAllocation = await JoinRelay(relayJoinCode);
             
