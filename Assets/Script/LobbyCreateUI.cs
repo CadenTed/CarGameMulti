@@ -21,7 +21,21 @@ public class LobbyCreateUI : MonoBehaviour
         {
             CarGameLobby.Instance.CreateLobby(inputField.text, true);
         });
+        closeBtn.onClick.AddListener(Hide);
 
+        
+    }
 
+    private void Start()
+    {
+        Hide();
+    }
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+    private void Hide()
+    {
+        gameObject.SetActive(false);
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ public class CharacterSelectPlayer : MonoBehaviour
     [SerializeField] private GameObject readyGameObject;
     [SerializeField] private PlayerVisual playerVisual;
     [SerializeField] private Button kickButton;
+    [SerializeField] private TextMeshPro nameText;
 
     private void Awake()
     {
@@ -17,6 +19,7 @@ public class CharacterSelectPlayer : MonoBehaviour
         {
             PlayerData playerData = CarGameMultiplayer.Instance.GetPLayerDataFromPlayerIndex(playerIndex);
             CarGameMultiplayer.Instance.KickPlayer(playerData.clientId);
+            CarGameLobby.Instance.KickPlayer(playerData.playerId.ToString());
         });
     }
 
@@ -49,8 +52,10 @@ public class CharacterSelectPlayer : MonoBehaviour
             PlayerData playerData = CarGameMultiplayer.Instance.GetPLayerDataFromPlayerIndex(playerIndex);
             readyGameObject.SetActive(CharacterSelectReady.Instace.IsPlayerReady(playerData.clientId));
 
+            nameText.text = playerData.playerName.ToString();
+            
             playerVisual.SetBodyColor(CarGameMultiplayer.Instance.GetPlayerColor(playerData.colorId));
-            playerVisual.SetPlowColor(CarGameMultiplayer.Instance.GetPlayerColor(playerData.colorId));
+            //playerVisual.SetPlowColor(CarGameMultiplayer.Instance.GetPlayerColor(playerData.colorId));
         }
         else
         {

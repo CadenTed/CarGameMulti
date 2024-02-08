@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
-using UnityEngine;
 
 public class CharacterSelectReady : NetworkBehaviour
 {
@@ -42,6 +40,7 @@ public class CharacterSelectReady : NetworkBehaviour
 
         if (allClientsReady)
         {
+            CarGameLobby.Instance.DeleteLobby();
             LoadGame.LoadMultiplayerGame();
         }
 
