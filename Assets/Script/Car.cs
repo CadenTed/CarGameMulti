@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,6 +10,8 @@ public class Car : NetworkBehaviour
 {
     [SerializeField] private PlayerVisual playerVisual;
     [SerializeField] private List<Vector3> spawnPos;
+    [SerializeField] private CinemachineVirtualCamera vc;
+    [SerializeField] private AudioListener listener;
     Rigidbody rb;
     static public Vector3 POS = Vector3.zero;
     static public Vector3 TRUCKVEL = Vector3.zero;
@@ -47,6 +50,16 @@ public class Car : NetworkBehaviour
         if (SceneManager.GetActiveScene().name != "CharacterSelectScene")
         {
             transform.position = spawnPos[CarGameMultiplayer.Instance.GetPlayerDataIndexFromClientID(OwnerClientId)];
+        }
+
+        if (IsOwner)
+        {
+            listener.enabled = true;
+            vc.Priority = 1;
+        }
+        else
+        {
+            vc.Priority = 0;
         }
     }
 
