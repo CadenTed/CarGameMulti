@@ -12,19 +12,11 @@ public class ScoreManager : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
 
-    public static ScoreManager instance;
+    public static ScoreManager instance { get; private set; }
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        instance = this;
 
         highScore = PlayerPrefs.GetInt("HighScore", 0);
     }

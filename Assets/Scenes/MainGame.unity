@@ -2950,6 +2950,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4283122759711145051, guid: 4408be092536ad041b2f212fdfabaa88, type: 3}
   m_PrefabInstance: {fileID: 1131988571}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1131988573 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5787604893522484418, guid: 4408be092536ad041b2f212fdfabaa88, type: 3}
+  m_PrefabInstance: {fileID: 1131988571}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4e0245639c74514198ae1e68d6cac4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1147797753 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3117462882502349814, guid: 311045c8f91be9141a4b9e6be8be2d11, type: 3}
@@ -3025,10 +3036,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c7ff0b066a9ab49a7c1c18e6c1e880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
+  scoreText: {fileID: 1410449786}
   currentScene:
     m_Handle: 0
+  healthBar: {fileID: 1131988573}
   playerPrefab: {fileID: 1746839655123962832, guid: d2cd503c789dc4a4aa533e86c7decbdc, type: 3}
+  maxHealth: 100
+  health: 0
 --- !u!4 &1156269552
 Transform:
   m_ObjectHideFlags: 0

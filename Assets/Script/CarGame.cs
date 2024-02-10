@@ -3,6 +3,8 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Search;
+using UnityEngine.UI;
 
 // Check for tutorial ending condition
 
@@ -15,7 +17,11 @@ public class CarGame : NetworkBehaviour
 
     public Scene currentScene;
 
+    [SerializeField] private HealthBar healthBar;
+
     [SerializeField] private Transform playerPrefab;
+    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int health;
 
     private void Awake()
     {
@@ -24,6 +30,22 @@ public class CarGame : NetworkBehaviour
         currentScene = SceneManager.GetActiveScene();
     }
 
+    private void Start()
+    {
+        health = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+    }
+
+    public int GetHealth()
+    {
+        return health;
+    }
+
+    public void SetHealth(int newHealth)
+    {
+        health = newHealth;
+    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -51,5 +73,12 @@ public class CarGame : NetworkBehaviour
             Transform playerTransform = Instantiate(playerPrefab);
             playerTransform.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
         }
+    }
+    
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        Debug.Log(health);
+        healthBar.SetHealth(health);
     }
 }

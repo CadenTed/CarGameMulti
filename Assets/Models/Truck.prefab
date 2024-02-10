@@ -707,6 +707,7 @@ GameObject:
   - component: {fileID: 5470977538938505579}
   - component: {fileID: 4138614888212354642}
   - component: {fileID: 7911111221266275816}
+  - component: {fileID: 1845506650739109252}
   m_Layer: 0
   m_Name: pPlow
   m_TagString: Untagged
@@ -814,6 +815,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioPlayer: {fileID: 2306201983473646428}
   deathEffect: {fileID: 3199209493608695645, guid: 9e9a25318b5a9894b863261b59d4d1f3, type: 3}
+--- !u!114 &1845506650739109252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965852931693743838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3095886088
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1997817519149955319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1532,6 +1553,7 @@ MonoBehaviour:
   - {x: 10, y: 1, z: 0}
   vc: {fileID: 2537664771528692081}
   listener: {fileID: 6031080182401261131}
+  rb: {fileID: 2213803204388953956}
   healthBar: {fileID: 0}
   ZombDamage: 7
   WallDamageMult: 10
@@ -1997,6 +2019,7 @@ GameObject:
   - component: {fileID: 1516620587306089257}
   - component: {fileID: 2378967554012591322}
   - component: {fileID: 4106242353660697359}
+  - component: {fileID: 3468498283380353153}
   m_Layer: 0
   m_Name: dPlow
   m_TagString: Untagged
@@ -2104,6 +2127,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioPlayer: {fileID: 2306201983473646428}
   deathEffect: {fileID: 3199209493608695645, guid: 9e9a25318b5a9894b863261b59d4d1f3, type: 3}
+--- !u!114 &3468498283380353153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4718179965908138856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3095886088
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &5357299754995019698
 GameObject:
   m_ObjectHideFlags: 0
