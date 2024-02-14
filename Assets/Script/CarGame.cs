@@ -49,7 +49,7 @@ public class CarGame : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(scoreText.text);
+        // Debug.Log(scoreText.text);
         if (KillZomb.killedCount >= 10 && currentScene.name == "Demo")
         {
             SceneManager.LoadScene("MainMenu");

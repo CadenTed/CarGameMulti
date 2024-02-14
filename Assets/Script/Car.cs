@@ -36,6 +36,8 @@ public class Car : NetworkBehaviour
 
         playerData = CarGameMultiplayer.Instance.GetPlayerDataFromClientID(OwnerClientId);
         
+        playerVisual.SetBodyColor(CarGameMultiplayer.Instance.GetPlayerColor(playerData.colorId));
+        
     }
 
     public override void OnNetworkSpawn()
@@ -92,6 +94,8 @@ public class Car : NetworkBehaviour
     private void OnTriggerEnter(Collider other)
     {
         colliderList.Add(other);
+        
+        Debug.Log(colliderList[0]);
         // Take car damage from zombie if traveling slower than a certain speed
         if (other.gameObject.CompareTag("Zomb"))
         {
@@ -121,15 +125,15 @@ public class Car : NetworkBehaviour
         // Take car damage when hitting TNT powerup
         if (other.gameObject.CompareTag("TNT"))
         {
-            DestroyObjectServerRpc();
-            TakeBombDamageClientRpc();
+            // DestroyObjectServerRpc();
+            TakeBombDamageServerRpc(0);
         }
 
         // Heal car when hitting health boost powerup
         if (other.gameObject.CompareTag("HealthBoost"))
         {
-            DestroyObjectServerRpc();
-            HealClientRpc();
+            // DestroyObjectServerRpc();
+            HealServerRpc(0);
         }
 
         colliderList.Clear();
@@ -158,17 +162,17 @@ public class Car : NetworkBehaviour
     }
 
 
-    [ClientRpc]
-    private void TakeBombDamageClientRpc()
+    [ServerRpc(RequireOwnership = false)]
+    private void TakeBombDamageServerRpc(int index)
     {
-        Destroy(colliderList[0].gameObject);
+        Destroy(colliderList[index].gameObject);
         CarGame.Instance.TakeDamage(30);
     }
 
-    [ClientRpc]
-    private void HealClientRpc()
+    [ServerRpc(RequireOwnership = false)]
+    private void HealServerRpc(int index)
     {
-        Destroy(colliderList[0].gameObject);
+        Destroy(colliderList[index].gameObject);
         
         Debug.Log(colliderList[0]);
 

@@ -210,7 +210,7 @@ public class CarGameMultiplayer : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void ChangePlayerColorServerRpc(int colorId, ServerRpcParams  serverRpcParams = default)
+    private void ChangePlayerColorServerRpc(int colorId, ServerRpcParams serverRpcParams = default)
     {
         if (!IsColorAvailable(colorId))
         {

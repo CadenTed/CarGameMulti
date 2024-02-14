@@ -9,7 +9,7 @@ public class PauseMultiplayerUI : MonoBehaviour
     private void Start()
     {
         PauseManager.Instance.OnMultiplayerGamePaused += PauseManager_OnMultiplayerGamePaused;
-        PauseManager.Instance.OnMultiplayerGamePaused += PauseManager_OnMultiplayerGameUnpaused;
+        PauseManager.Instance.OnMultiplayerGameUnpaused += PauseManager_OnMultiplayerGameUnpaused;
 
         Hide();
     }
