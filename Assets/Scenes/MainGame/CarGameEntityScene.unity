@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 192289910}
-  - component: {fileID: 192289909}
+  - component: {fileID: 192289911}
   m_Layer: 0
   m_Name: Arena
   m_TagString: Untagged
@@ -140,24 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &192289909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192289908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38ff63d8e5b94e7ca2165f1b7468ce5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fieldDimensions:
-    x: 0
-    y: 0
-  zombPrefab: {fileID: 7325208857032553766, guid: e77c2764ac8583a4180e84e6b6ba1b74,
-    type: 3}
-  randomSeed: 100
 --- !u!4 &192289910
 Transform:
   m_ObjectHideFlags: 0
@@ -173,6 +155,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &192289911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192289908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f852791bb34c36b801465532417a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FieldDimensions:
+    x: 145
+    y: 145
+  NumberPointsToSpawn: 250
+  SpawnPointPrefab: {fileID: 5542557255225629357, guid: a4a140a89d1bc4d2186c05ee28b56cfc,
+    type: 3}
+  RandomSeed: 100
+  ZombiePrefab: {fileID: 7325208857032553766, guid: e77c2764ac8583a4180e84e6b6ba1b74,
+    type: 3}
+  ZombieSpawnRate: 3
 --- !u!1001 &1117593445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -236,7 +240,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Truck
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8080900398060095887, guid: d2cd503c789dc4a4aa533e86c7decbdc, type: 3}
+    - {fileID: 8446469071924036124, guid: d2cd503c789dc4a4aa533e86c7decbdc, type: 3}
+    - {fileID: 3325056199402384757, guid: d2cd503c789dc4a4aa533e86c7decbdc, type: 3}
+    - {fileID: 13327079955856970, guid: d2cd503c789dc4a4aa533e86c7decbdc, type: 3}
+    - {fileID: 4955229006838852053, guid: d2cd503c789dc4a4aa533e86c7decbdc, type: 3}
+    - {fileID: 6616159502549686036, guid: d2cd503c789dc4a4aa533e86c7decbdc, type: 3}
+    - {fileID: 2213803204388953956, guid: d2cd503c789dc4a4aa533e86c7decbdc, type: 3}
+    - {fileID: 1242268365009839216, guid: d2cd503c789dc4a4aa533e86c7decbdc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
