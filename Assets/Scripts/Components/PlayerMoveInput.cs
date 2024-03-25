@@ -3,9 +3,8 @@ using Unity.Mathematics;
 
 namespace Components
 {
-    public struct SpawnRandom : IComponentData
+    public struct PlayerMoveInput : IComponentData
     {
-        public Random Value;
+        public float2 Value;
     }
 }
-

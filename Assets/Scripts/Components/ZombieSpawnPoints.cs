@@ -1,12 +1,15 @@
-using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 
-namespace DefaultNamespace
+namespace Components
 {
     public struct ZombieSpawnPoints : IComponentData
     {
-        public NativeArray<float3> value;
-        
+        public BlobAssetReference<ZombieSpawnPointsBlob> Value;
+    }
+
+    public struct ZombieSpawnPointsBlob
+    {
+        public BlobArray<float3> Value;
     }
 }
