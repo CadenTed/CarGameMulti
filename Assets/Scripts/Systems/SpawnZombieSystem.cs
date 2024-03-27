@@ -1,7 +1,8 @@
-using Aspects;
 using Components;
 using Unity.Burst;
 using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Transforms;
 
 namespace Systems
 {
@@ -9,30 +10,30 @@ namespace Systems
     public partial struct SpawnZombieSystem : ISystem
     {
         [BurstCompile]
-        public void OnCreate( ref SystemState state )
+        public void OnCreate(ref SystemState state)
         {
-            state.RequireForUpdate<ZombieSpawnTimer>();
+            state.RequireForUpdate<BeginInitializationEntityCommandBufferSystem.Singleton>();
         }
 
         [BurstCompile]
-        public void OnUpdate( ref SystemState state )
+        public void OnUpdate(ref SystemState state)
         {
             var deltaTime = SystemAPI.Time.DeltaTime;
-            var ecbSingleton = SystemAPI.GetSingleton< BeginInitializationEntityCommandBufferSystem.Singleton >();
+            var ecbSingleton = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
+
             new SpawnZombieJob
             {
                 DeltaTime = deltaTime,
                 ECB = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged)
-            }.Run();
+            }.Schedule();
         }
 
         [BurstCompile]
-        public void OnDestroy( ref SystemState state )
+        public void OnDestroy(ref SystemState state)
         {
-
         }
     }
-    
+
     [BurstCompile]
     public partial struct SpawnZombieJob : IJobEntity
     {
@@ -40,21 +41,18 @@ namespace Systems
         public EntityCommandBuffer ECB;
 
         [BurstCompile]
-        private void Execute( ArenaAspect arena )
+        private void Execute(ref SpawnRandom random, in ArenaProperties arena, ref Timer timer)
         {
-            arena.ZombieSpawnTimer -= DeltaTime;
-            if ( !arena.TimeToSpawnZombie ) return;
-            if ( !arena.ZombieSpawnPointInitialized() ) return;
+            timer.Value -= DeltaTime;
+            if (timer.Value > 0) return;
 
-            arena.ZombieSpawnTimer = arena.ZombieSpawnRate;
-            var newZombie = ECB.Instantiate( arena.ZombiePrefab );
+            timer.Value = random.Value.NextFloat(0, arena.ZombieSpawnRate);
 
-            var newZombieTransform = arena.GetZombieSpawnPoint();
-            ECB.SetComponent(newZombie, newZombieTransform);
-
-            var zombieHeading = MathHelpers.GetHeading( newZombieTransform.Position, arena.Position );
-            ECB.SetComponent(newZombie, new ZombieHeading{Value = zombieHeading});
-
+            var zombie = ECB.Instantiate(arena.ZombiePrefab);
+            ECB.SetComponent(zombie, LocalTransform.FromPosition(
+                new float3(random.Value.NextFloat(-arena.Dimensions.x, arena.Dimensions.x), 0,
+                    random.Value.NextFloat(-arena.Dimensions.y, arena.Dimensions.y))
+            ));
         }
     }
 }

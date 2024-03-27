@@ -1,10 +1,6 @@
-using System.Globalization;
 using Aspects;
-using Components;
 using Unity.Burst;
 using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Transforms;
 
 namespace Systems
 {
@@ -13,15 +9,16 @@ namespace Systems
     public partial struct ZombieWalkSystem : ISystem
     {
         [BurstCompile]
-        public void OnCreate( ref SystemState state )
+        public void OnCreate(ref SystemState state)
         {
+            state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
         }
 
         [BurstCompile]
-        public void OnUpdate( ref SystemState state )
+        public void OnUpdate(ref SystemState state)
         {
             var deltaTime = SystemAPI.Time.DeltaTime;
-            var ecbSingleton = SystemAPI.GetSingleton< EndSimulationEntityCommandBufferSystem.Singleton >();
+            var ecbSingleton = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
 
             new ZombieWalkJob
             {
@@ -31,9 +28,8 @@ namespace Systems
         }
 
         [BurstCompile]
-        public void OnDestroy( ref SystemState state )
+        public void OnDestroy(ref SystemState state)
         {
-
         }
     }
 
@@ -44,10 +40,9 @@ namespace Systems
         // public EntityCommandBuffer.ParallelWriter ECB;
 
         [BurstCompile]
-        private void Execute( ZombieWalkAspect zombie, [ChunkIndexInQuery]int sortKey )
+        private void Execute(ZombieWalkAspect zombie, [ChunkIndexInQuery] int sortKey)
         {
             zombie.Walk(DeltaTime);
-
         }
     }
 }

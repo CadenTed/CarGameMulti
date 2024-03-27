@@ -144,60 +144,27 @@ MonoBehaviour:
   motorTorque: 1000
   breakTorque: 3000
   steerAngle: 30
---- !u!1 &192289908
+--- !u!1 &419098453 stripped
 GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3117462882502349814, guid: 311045c8f91be9141a4b9e6be8be2d11,
+    type: 3}
+  m_PrefabInstance: {fileID: 1766085639}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 192289910}
-  - component: {fileID: 192289911}
-  m_Layer: 0
-  m_Name: Arena
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &192289910
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192289908}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &192289911
+--- !u!114 &419098457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192289908}
+  m_GameObject: {fileID: 419098453}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49f852791bb34c36b801465532417a44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FieldDimensions:
-    x: 145
-    y: 145
-  NumberPointsToSpawn: 250
-  SpawnPointPrefab: {fileID: 5542557255225629357, guid: a4a140a89d1bc4d2186c05ee28b56cfc,
+  zombiePrefab: {fileID: 7325208857032553766, guid: e77c2764ac8583a4180e84e6b6ba1b74,
     type: 3}
-  RandomSeed: 100
-  ZombiePrefab: {fileID: 7325208857032553766, guid: e77c2764ac8583a4180e84e6b6ba1b74,
-    type: 3}
-  ZombieSpawnRate: 3
+  spawnRate: 6
 --- !u!1001 &1117593445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -366,7 +333,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3117462882502349814, guid: 311045c8f91be9141a4b9e6be8be2d11,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 419098457}
   m_SourcePrefab: {fileID: 100100000, guid: 311045c8f91be9141a4b9e6be8be2d11, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -374,4 +345,3 @@ SceneRoots:
   m_Roots:
   - {fileID: 1766085639}
   - {fileID: 1117593445}
-  - {fileID: 192289910}

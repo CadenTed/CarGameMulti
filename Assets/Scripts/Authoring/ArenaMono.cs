@@ -8,36 +8,32 @@ namespace Authoring
 {
     public class ArenaMono : MonoBehaviour
     {
-        public float2 FieldDimensions;
-        public int NumberPointsToSpawn;
-        public GameObject SpawnPointPrefab;
-        public uint RandomSeed;
-        public GameObject ZombiePrefab;
-        public float ZombieSpawnRate;
-        
-    }
-    
-    public class ArenaMonoBaker : Baker< ArenaMono >
-    {
-        public override void Bake( ArenaMono authoring )
-        {
-            var arenaEntity = GetEntity( TransformUsageFlags.Dynamic );
+        public Vector2 dimensions = new(74, 74);
 
-            AddComponent( arenaEntity, new ArenaProperties
+        public GameObject zombiePrefab;
+        public float spawnRate = 1f;
+
+        private class ArenaMonoBaker : Baker<ArenaMono>
+        {
+            public override void Bake(ArenaMono authoring)
             {
-                FieldDimensions = authoring.FieldDimensions,
-                NumberPointsToSpawn = authoring.NumberPointsToSpawn,
-                SpawnPointPrefab = GetEntity( authoring.SpawnPointPrefab, TransformUsageFlags.Dynamic ),
-                ZombPrefab = GetEntity( authoring.ZombiePrefab, TransformUsageFlags.Dynamic ),
-                ZombieSpawnRate = authoring.ZombieSpawnRate
-            } );
-            
-            AddComponent( arenaEntity, new SpawnRandom
-            {
-                Value = Random.CreateFromIndex(authoring.RandomSeed)
-            });
-            AddComponent<ZombieSpawnPoints>(arenaEntity);
-            AddComponent<ZombieSpawnTimer>(arenaEntity);
+                var entity = GetEntity(TransformUsageFlags.None);
+
+                AddComponent(entity, new ArenaProperties
+                {
+                    Dimensions = authoring.dimensions,
+                    ZombiePrefab = GetEntity(authoring.zombiePrefab, TransformUsageFlags.Dynamic),
+                    ZombieSpawnRate = authoring.spawnRate,
+                });
+                AddComponent(entity, new Timer
+                {
+                    Value = UnityEngine.Random.Range(0, authoring.spawnRate)
+                });
+                AddComponent(entity, new SpawnRandom
+                {
+                    Value = Random.CreateFromIndex((uint)entity.Index)
+                });
+            }
         }
     }
 }
